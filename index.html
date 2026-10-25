@@ -1,93 +1,115 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>La Carrera Cuántica</title>
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><title>Boss Rush Cuántico</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>
-:root{--bg:#eef2fb;--fg:#13204f;--card:#fff;--ac:#1b2a6b;--bd:#c5cff0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1426;--fg:#e8ecff;--card:#1a2340;--ac:#8fa2ff;--bd:#33406e}}
-:root[data-theme="dark"]{--bg:#0e1426;--fg:#e8ecff;--card:#1a2340;--ac:#8fa2ff;--bd:#33406e}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px system-ui,sans-serif;text-align:center}
-h1{font-size:20px;margin:10px 8px 2px}#hud{font-weight:600;font-size:14px;margin:4px 8px}
-#w{position:relative;max-width:900px;margin:0 auto}canvas{width:100%;display:block;border:2px solid var(--ac);border-radius:8px;background:#9fd3ff}
-#ov{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(10,15,40,.55);border-radius:8px;padding:8px}
-.card{background:var(--card);border:2px solid var(--ac);border-radius:12px;padding:14px;max-width:640px;width:100%;max-height:100%;overflow:auto;text-align:left}
-.card h2{font-size:17px;margin:4px 0 10px}.card small{color:var(--ac);font-weight:700}
+:root{--bg:#f1e6cf;--fg:#2b1d0e;--card:#fff8e7;--ac:#8a1c1c;--bd:#c9b48a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c140b;--fg:#f3e7cc;--card:#2d2112;--ac:#ff6b5b;--bd:#6b5636}}
+:root[data-theme="dark"]{--bg:#1c140b;--fg:#f3e7cc;--card:#2d2112;--ac:#ff6b5b;--bd:#6b5636}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px Georgia,serif;text-align:center}
+h1{font-size:20px;margin:8px 8px 4px;letter-spacing:1px}#w{position:relative;max-width:900px;margin:0 auto}
+canvas{width:100%;display:block;border:3px solid var(--fg);border-radius:6px;background:#000;touch-action:none}
+#ov{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(15,8,0,.62);padding:8px}
+.card{background:var(--card);border:3px solid var(--fg);border-radius:10px;padding:14px;max-width:640px;width:100%;max-height:100%;overflow:auto;text-align:left}
+.card h2{font-size:18px;margin:4px 0 8px}.card small{color:var(--ac);font-weight:700}
 .op{display:block;width:100%;text-align:left;margin:6px 0;padding:9px 11px;border:2px solid var(--bd);border-radius:8px;background:transparent;color:var(--fg);font:inherit;cursor:pointer}
-.op:hover{border-color:var(--ac)}#ct{background:var(--ac);color:var(--card);border:0;border-radius:8px;padding:10px 18px;font:inherit;font-weight:700;cursor:pointer;margin-top:6px}
-#fb{font-weight:700}#tc{display:flex;justify-content:space-between;max-width:900px;margin:8px auto;padding:0 8px;touch-action:none}
-#tc button{width:30%;padding:16px 0;font-size:22px;border-radius:12px;border:2px solid var(--ac);background:var(--card);color:var(--fg);touch-action:none;user-select:none}
+.op:hover{border-color:var(--ac)}#ct{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:10px 18px;font:inherit;font-weight:700;cursor:pointer;margin-top:8px}
+#fb{font-weight:700;margin:6px 0}#tc{display:flex;gap:8px;max-width:900px;margin:8px auto;padding:0 8px;touch-action:none}
+#tc button{flex:1;padding:16px 0;font-size:18px;border-radius:12px;border:2px solid var(--fg);background:var(--card);color:var(--fg);touch-action:none;user-select:none}
 p.h{font-size:13px;margin:4px 10px;opacity:.85}
 </style></head><body>
-<h1>La Carrera Cuántica</h1><div id="hud"></div>
-<div id="w"><canvas id="c"></canvas><div id="ov"><div class="card"><small id="tm"></small><h2 id="qt"></h2><div id="op"></div><p id="fb"></p><button id="ct" hidden>Continuar</button></div></div></div>
-<div id="tc"><button id="bl">◀</button><button id="bj">▲ Saltar</button><button id="br">▶</button></div>
-<p class="h">Mover: ← → o A D · Saltar: ↑, W o ESPACIO · Responder: clic o teclas 1 a 4. Tocá los bloques ? (36 preguntas del TP N° 9) y llegá a la bandera.</p>
+<h1>BOSS RUSH CUÁNTICO</h1>
+<div id="w"><canvas id="c"></canvas><div id="ov"><div class="card"><small id="tm"></small><h2 id="qt"></h2><div id="op"></div><p id="fb"></p><button id="ct">OK</button></div></div></div>
+<div id="tc"><button id="bl">◀</button><button id="br">▶</button><button id="bj">SALTAR</button><button id="bs">DISPARAR</button></div>
+<p class="h">Mover: ← → o A D · Saltar: ↑, W o ESPACIO · Disparar: Z, X o J (mantené apretado) · Saltá sobre los disparos ROSAS para pararlos (parry) y hacerle más daño al jefe. Cada jefe te hace preguntas del TP N° 9.</p>
 <script>
 const Q=[["¿Qué es un nanomaterial y en qué rango de tamaño se clasifica?", "Material con estructuras de entre 1 y 100 nanómetros", "Material con estructuras de entre 1 y 100 micrómetros", "Material con estructuras de entre 1 y 100 milímetros", "Cualquier material visible a simple vista, de más de 1 mm"], ["¿Por qué los nanomateriales tienen propiedades distintas a las de los materiales macroscópicos?", "Por su enorme relación superficie/volumen y por los efectos cuánticos a esa escala", "Porque están hechos de elementos que no existen en la naturaleza", "Porque son siempre mucho más pesados que el material común", "Porque solo se pueden fabricar a temperaturas muy bajas"], ["¿Cuáles son los dos grandes métodos de síntesis de nanomateriales?", "Top-down (reducir un material grande) y bottom-up (construir desde átomos o moléculas)", "Top-down (construir desde átomos) y bottom-up (cortar un material grande)", "Solo filtración y destilación del material macroscópico", "Únicamente fusión y solidificación a alta presión"], ["¿Qué ventajas tienen los nanotubos de carbono frente a otros materiales conductores?", "Gran conductividad eléctrica y térmica, alta resistencia y muy poco peso", "Son aislantes eléctricos, muy pesados y poco resistentes", "Se funden a temperatura ambiente, por eso son fáciles de moldear", "Solo sirven como colorante, no conducen la electricidad"], ["¿Cómo revolucionó el grafeno la investigación en electrónica y energía?", "Es una lámina de carbono de un átomo de espesor, flexible, resistente y muy conductora: base de pantallas flexibles y baterías", "Es un metal pesado que reemplazó al silicio por ser tóxico", "Es un polímero aislante que solo se usa en envases", "Es un gas que se utiliza como combustible"], ["¿Qué aplicaciones tienen las nanopartículas metálicas en la medicina moderna?", "Entrega dirigida de fármacos, imágenes diagnósticas y acción antimicrobiana (oro, plata)", "Solo se usan como colorante de las pastillas", "Solo sirven para esterilizar el instrumental metálico", "Se utilizan únicamente como conservante de alimentos"], ["¿Qué rol cumplen los nanocompuestos en la industria automotriz y aeroespacial?", "Aligeran y refuerzan piezas, mejorando la resistencia y reduciendo el consumo", "Aumentan el peso de las piezas para dar más estabilidad", "Se usan solo para dar color a las carrocerías", "Reemplazan al combustible en los motores"], ["¿Qué significa nanobioelectrotecnología y qué disciplinas integra?", "Integra nanotecnología, biología y electrotecnología para crear sistemas híbridos que interactúan con seres vivos mediante señales eléctricas", "Integra astronomía, geología y mecánica de fluidos", "Es la fabricación de baterías de gran tamaño para automóviles", "Integra solamente informática y arquitectura"], ["¿Cómo se diferencia la nanobioelectrotecnología de la nanotecnología convencional?", "Además de trabajar a escala nano, se conecta con sistemas biológicos y usa señales eléctricas", "No se diferencia: es exactamente lo mismo", "Trabaja únicamente a escala macroscópica", "Excluye cualquier uso de la electricidad y de los seres vivos"], ["¿Qué papel cumple la biología en el diseño de dispositivos nanobioelectrónicos?", "Aporta elementos (enzimas, anticuerpos, ADN, células) que reconocen con precisión lo que se quiere detectar o estimular", "Solo aporta el color y la forma de la carcasa", "No participa: solo importa la parte electrónica", "Se encarga de proveer la energía nuclear al dispositivo"], ["¿Cómo funcionan los biosensores eléctricos en la detección de enfermedades?", "Un elemento biológico reconoce la biomolécula o el virus y eso produce un cambio eléctrico medible", "Cambian de color con la luz solar sin ninguna señal eléctrica", "Cortan el virus con nanotijeras mecánicas", "Solo funcionan si se inyecta un antibiótico al paciente"], ["¿Qué aplicaciones tiene la nanobioelectrotecnología en la ingeniería neuronal?", "Chips implantables que monitorean y estimulan la actividad cerebral", "Fabrican neuronas nuevas a partir de metal", "Se usan solo para refrigerar el cerebro", "Sirven para teñir los tejidos del cerebro"], ["¿Cómo permiten los biochips la medicina personalizada?", "Analizan datos de cada paciente (ADN, biomarcadores) para ajustar el diagnóstico y el tratamiento", "Dan exactamente el mismo tratamiento a todas las personas", "Solo registran la altura y el peso del paciente", "Reemplazan completamente al médico en cualquier decisión"], ["¿Qué avances existen en prótesis controladas por señales cerebrales?", "Interfaces cerebro-computadora que traducen señales neuronales en movimiento de prótesis o de un cursor", "Prótesis que se mueven solo con pilas comunes, sin conexión con el sistema nervioso", "Prótesis impresas que cambian de color según el clima", "Todavía no existe ningún avance en este campo"], ["¿Qué diferencia hay entre un sensor químico y un biosensor nanobioelectrónico?", "El biosensor usa un elemento biológico de reconocimiento (enzima, anticuerpo) y por eso es muy selectivo", "El sensor químico usa células vivas y el biosensor no", "No hay ninguna diferencia entre ambos", "El biosensor no es capaz de detectar ninguna sustancia"], ["¿Cómo se aprovecha la nanotecnología en la creación de tejidos artificiales?", "Nanofibras y nanomateriales forman andamios que guían el crecimiento celular y ayudan a regenerar tejido", "Se cortan tejidos naturales con nanocuchillos y se pegan", "Se usan solo para teñir la piel artificial", "Reemplazan a las células por plástico común"], ["¿Qué es la química cuántica y en qué se diferencia de la química clásica?", "Aplica la mecánica cuántica a átomos y moléculas y explica estructuras y reacciones por el comportamiento de los electrones", "Es la que cuenta cuántos átomos hay en una muestra y nada más", "Es exactamente lo mismo que la química clásica", "Estudia solo la escala macroscópica, sin tener en cuenta electrones"], ["¿Cuál es la importancia de la ecuación de Schrödinger en el estudio de los átomos?", "Permite calcular las funciones de onda y las energías de los electrones, base de los orbitales", "Calcula únicamente la masa del núcleo", "Mide la velocidad de la luz en el vacío", "Predice el color de los metales sin usar electrones"], ["Explica el principio de incertidumbre de Heisenberg: ¿cuál es la idea correcta?", "No se puede conocer con exactitud a la vez la posición y la velocidad de un electrón", "Con un buen microscopio se conocen exactamente posición y velocidad de un electrón", "La energía no se conserva en ninguna reacción", "Los electrones giran en órbitas fijas y perfectamente conocidas"], ["¿Qué significa que la energía esté cuantizada?", "Que solo puede tomar ciertos valores discretos (paquetes o cuantos), no cualquier valor", "Que puede tomar cualquier valor de forma continua", "Que la energía de un átomo siempre es cero", "Que se mide únicamente en fracciones de un cuarto"], ["¿Qué son los orbitales atómicos y cómo se clasifican?", "Regiones donde es más probable encontrar un electrón; se clasifican en s, p, d y f", "Órbitas circulares exactas de los electrones; solo existen s y p", "Los núcleos de los átomos pesados", "Capas de nanotubos de carbono"], ["¿Cómo explica la teoría cuántica el enlace químico entre átomos?", "Por la superposición de orbitales atómicos, que forma orbitales moleculares y comparte densidad electrónica", "Por la atracción gravitatoria entre los átomos", "Porque los núcleos de los átomos se fusionan", "Porque los electrones se detienen entre los átomos"], ["¿Qué relación existe entre los números cuánticos y la configuración electrónica?", "Los números cuánticos (n, l, m, s) describen cada electrón y determinan cómo se distribuyen en los orbitales", "Indican solo el color del elemento", "No tienen ninguna relación entre sí", "Indican la cantidad de neutrones del núcleo"], ["¿Qué papel cumple el spin del electrón en la estructura atómica?", "Un orbital admite como máximo 2 electrones y deben tener spines opuestos (principio de exclusión de Pauli)", "Define el color del orbital", "Permite que 5 electrones con igual spin ocupen un mismo orbital", "Es la velocidad de traslación del átomo completo"], ["¿Cómo se aplican los modelos cuánticos para predecir propiedades moleculares?", "Se calculan energías y distribución de electrones para predecir geometría, estabilidad, polaridad y reactividad", "Se tiran monedas para estimar las propiedades", "Se miden con una regla común", "Solo se copian valores de tablas sin hacer ningún cálculo"], ["¿Qué técnicas computacionales usa la química cuántica moderna?", "DFT (teoría del funcional de la densidad) y métodos ab initio, como Hartree-Fock", "Cromatografía y destilación", "Microscopía óptica y balanza analítica", "Solo titulaciones ácido-base"], ["¿Cómo se utiliza la química cuántica en el diseño de fármacos y materiales nuevos?", "Se simula cómo encaja y reacciona una molécula con su blanco antes de sintetizarla", "Se prueban directamente en personas, sin simular nada", "Se eligen al azar, por sorteo", "Solo se usa para diseñar el envase del producto"], ["¿Qué relación tiene la mecánica cuántica con la fluorescencia y los láseres?", "Los electrones saltan a niveles excitados y al volver a niveles menores emiten fotones de energía definida", "Los núcleos emiten luz cuando se rompen", "Los átomos solo calientan el aire que los rodea", "Los electrones desaparecen y reaparecen en otro átomo"], ["¿Qué es un estado excitado y cómo se produce?", "Un estado de mayor energía al que pasa un electrón al absorber energía (luz, calor, electricidad)", "El estado de menor energía posible de un átomo", "El estado en que el átomo pierde su núcleo", "El estado en que el átomo se enfría hasta el cero absoluto"], ["¿Por qué el modelo de Bohr fue superado por el modelo cuántico moderno?", "Explicaba bien solo al hidrógeno y no contemplaba la incertidumbre, los orbitales ni los átomos con varios electrones", "Porque Bohr se equivocó con la fórmula del agua", "Porque predecía demasiados colores en el espectro", "Porque nunca se midió ningún espectro atómico"], ["¿Qué aportes hizo la física cuántica al entendimiento de los semiconductores?", "La teoría de bandas de energía (banda de valencia, banda de conducción y brecha)", "Demostró que ningún material puede conducir electricidad", "Solo se aplica a metales líquidos", "Los explica únicamente con mecánica de fluidos"], ["¿Cómo se puede aplicar la química cuántica en la conversión de energía solar?", "Permite diseñar materiales que absorban luz y transfieran electrones de forma eficiente", "Se usa para orientar los paneles con una brújula", "Solo calcula el precio de los paneles", "No tiene ninguna aplicación en energía solar"], ["¿Qué diferencia hay entre un enlace covalente clásico y uno explicado cuánticamente?", "El clásico muestra electrones compartidos entre dos átomos; el cuántico los describe como orbitales moleculares con densidad deslocalizada", "El clásico roba electrones definitivamente; el cuántico forma iones", "No hay ninguna diferencia entre ambos", "El enlace cuántico no usa electrones"], ["¿Qué aplicaciones tiene la computación cuántica en la investigación química?", "Simular moléculas y reacciones complejas con una precisión que las computadoras clásicas no logran", "Solo almacenar fotos y videos", "Reemplazar hoy mismo a todos los laboratorios", "Solo navegar por internet más rápido"], ["¿Cómo se puede visualizar la densidad electrónica en una molécula?", "Con mapas e isosuperficies de densidad y orbitales calculados mediante software de modelado molecular", "Mirando la molécula con una lupa común", "Pesando la molécula en una balanza", "Midiendo su temperatura con un termómetro"], ["¿Cómo influye la química cuántica en el estudio de los nanomateriales?", "Explica propiedades como el color de las nanopartículas de oro o de los quantum dots por el confinamiento cuántico", "No influye en absoluto", "Solo explica cuánto pesan", "Solo sirve para empaquetarlos"]];
-const T=32,R=12,NB=36,NW=12+9*NB+16,FX=12+9*NB+6;
-const cv=document.getElementById('c'),g=cv.getContext('2d');cv.width=800;cv.height=R*T;
-const $=i=>document.getElementById(i);
-let W,QL,QM,P,ck,ok,bad,fall,done,cur,corr,st,keys={},cam=0,tk=0;
-const TOP=n=>n<7?'NANOMATERIALES':n<16?'NANOBIOELECTROTECNOLOGÍA':'QUÍMICA CUÁNTICA';
-function build(){W=[];QL=[];QM={};
- for(let r=0;r<R;r++)W.push(Array(NW).fill(' '));
- for(let c=0;c<NW;c++){W[10][c]='#';W[11][c]='#'}
- for(let i=0;i<NB;i++){const b=12+9*i,t=i%4;let c,r;
-  if(t==0){c=b+4;r=7}else if(t==1){for(let k=2;k<=6;k++)W[8][b+k]='=';c=b+4;r=6}
-  else if(t==2){for(let k=2;k<=4;k++){W[10][b+k]=' ';W[11][b+k]=' '}c=b+3;r=8}
-  else{W[9][b+3]='^';W[9][b+4]='^';c=b+4;r=7}
-  W[r][c]='?';QL[i]={c,r,b};QM[r+','+c]=i}}
-function reset(){build();P={x:3*T,y:10*T-28,w:22,h:28,vx:0,vy:0,on:false,f:1};ck=3;ok=bad=fall=done=0;cur=-1;st='play';$('ov').style.display='none';hud()}
-function hud(){$('hud').textContent=`Bloque ${done}/36 · Aciertos ${ok} · Errores ${bad} · Caídas ${fall}`}
-const sol=(c,r)=>c<0||c>=NW?true:r<0||r>=R?false:W[r][c]=='#'||W[r][c]=='=';
-function die(){fall++;P.x=ck*T;P.y=10*T-P.h;P.vx=P.vy=0;hud()}
-function ask(i){cur=i;st='q';const q=Q[i],o=[0,1,2,3];
- for(let a=3;a>0;a--){const j=Math.floor(Math.random()*(a+1));[o[a],o[j]]=[o[j],o[a]]}
- corr=o.indexOf(0);$('tm').textContent=`PREGUNTA ${i+1} DE 36 · ${TOP(i)}`;$('qt').textContent=q[0];$('fb').textContent='';$('ct').hidden=true;
- $('op').innerHTML='';o.forEach((k,n)=>{const b=document.createElement('button');b.className='op';b.textContent=`${n+1}) ${q[k+1]}`;b.onclick=()=>ans(n);$('op').appendChild(b)});
- $('ov').style.display='flex'}
-function ans(n){if(st!='q')return;const q=Q[cur],r=n==corr;r?ok++:bad++;done++;
- const b=QL[cur];W[b.r][b.c]=' ';ck=Math.max(ck,b.b+6);
- [...$('op').children].forEach((e,k)=>{e.disabled=true;if(k==corr)e.style.borderColor='#2e9e5b';else if(k==n)e.style.borderColor='#d64545'});
- $('fb').textContent=r?'¡Correcto!':'Incorrecto. La respuesta correcta está marcada en verde.';
- st='fb';$('ct').hidden=false;$('ct').textContent='Continuar';hud()}
-function cont(){if(st=='fb'){$('ov').style.display='none';st='play'}else if(st=='end')reset()}
-function win(){st='end';$('tm').textContent='FIN DEL JUEGO';$('qt').textContent=`¡Llegaste a la meta! Aciertos: ${ok} de 36 · Errores: ${bad} · Caídas: ${fall}`;
- $('op').innerHTML='';$('fb').textContent='';$('ct').hidden=false;$('ct').textContent='Jugar de nuevo';$('ov').style.display='flex'}
-$('ct').onclick=cont;
+const $=i=>document.getElementById(i),cv=$('c'),g=cv.getContext('2d');cv.width=800;cv.height=450;
+const GY=390,R=Math.random,PL=[[0,7],[7,16],[16,36]],M=Math;
+const BS=[{n:'NANO-GÓLEM DE GRAFENO',t:'NANOMATERIALES',hp:140,bg:['#e8dcc0','#b9a77f'],d:'Lanza nanotubos de carbono (bajos y altos) y abanicos de nanopartículas de oro.'},
+{n:'NEURO-CHIP ELÉCTRICO',t:'NANOBIOELECTROTECNOLOGÍA',hp:170,bg:['#d9c8e8','#8d6bb0'],d:'Descarga rayos que marcan antes el lugar y suelta virus que rebotan por el piso.'},
+{n:'EL ÁTOMO CUÁNTICO',t:'QUÍMICA CUÁNTICA',hp:200,bg:['#1a2a5a','#3b2a78'],d:'Se teletransporta (incertidumbre), lanza ondas senoidales y dispara electrones.'}];
+let lv=0,P,bo,pb=[],eb=[],wn=[],tk=0,hp=3,inv=0,ok=0,bad=0,keys={},jp=0,st='menu',fl=0,cor=0,cq=0,onC=null;
+function show(t,h,f,b){$('tm').textContent=t;$('qt').textContent=h;$('fb').textContent=f;$('op').innerHTML='';$('ct').hidden=!b;$('ct').textContent=b||'';$('ov').style.display='flex'}
+const hide=()=>{$('ov').style.display='none'};
+function intro(l){st='intro';lv=l;show(BS[l].t,'JEFE '+(l+1)+' DE 3: '+BS[l].n,BS[l].d,'¡A PELEAR!');onC=()=>start(l)}
+function start(l){lv=l;const d=BS[l];bo={x:590,y:130,w:180,h:240,hp:d.hp,max:d.hp,t:0,ph:0,bl:0};P={x:90,y:GY-44,w:28,h:44,vy:0,on:true};pb=[];eb=[];wn=[];hp=3;inv=0;st='play';hide()}
+function ask(){const[a,b]=PL[lv],i=a+M.floor(R()*(b-a)),q=Q[i],o=[0,1,2,3];st='q';
+ for(let k=3;k>0;k--){const j=M.floor(R()*(k+1));[o[k],o[j]]=[o[j],o[k]]}
+ cor=o.indexOf(0);show('¡EL JEFE SE DETIENE! RESPONDÉ PARA CURARTE Y DAÑARLO',q[0],'');$('ct').hidden=true;
+ o.forEach((k,n)=>{const b=document.createElement('button');b.className='op';b.textContent=(n+1)+') '+q[k+1];b.onclick=()=>ans(n);$('op').appendChild(b)})}
+function ans(n){if(st!='q')return;const r=n==cor;r?ok++:bad++;if(r){hp=M.min(3,hp+1);bo.hp-=bo.max*.06}
+ [...$('op').children].forEach((e,k)=>{e.disabled=true;if(k==cor)e.style.borderColor='#2e9e5b';else if(k==n)e.style.borderColor='#d64545'});
+ $('fb').textContent=r?'¡Correcto! Recuperás 1 corazón y el jefe recibe daño.':'Incorrecto. La respuesta correcta está en verde.';
+ st='fb';$('ct').hidden=false;$('ct').textContent='SEGUIR LUCHANDO';onC=()=>{hide();st='play'}}
+$('ct').onclick=()=>onC&&onC();
 addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(['arrowleft','arrowright','arrowup',' '].includes(k))e.preventDefault();
- if(st=='q'&&'1234'.includes(k)&&k.length==1)ans(+k-1);else if((k=='enter'||k==' ')&&st!='play'&&st!='q')cont();
- keys[k]=true});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
-[['bl','arrowleft'],['br','arrowright'],['bj','arrowup']].forEach(([id,k])=>{const b=$(id);
- b.onpointerdown=e=>{e.preventDefault();keys[k]=true};['pointerup','pointerleave','pointercancel'].forEach(v=>b['on'+v]=()=>keys[k]=false)});
-function step(){if(st!='play')return;
- const L=keys.arrowleft||keys.a,Rt=keys.arrowright||keys.d,U=keys.arrowup||keys.w||keys[' '];
- P.vx=L?-3.2:Rt?3.2:0;if(P.vx)P.f=P.vx>0?1:-1;
- if(U&&P.on){P.vy=-11;P.on=false}
- P.vy=Math.min(P.vy+.55,12);
- P.x+=P.vx;hit(0);P.y+=P.vy;P.on=false;hit(1);
- if(P.x<0)P.x=0;
- const c0=Math.floor(P.x/T),c1=Math.floor((P.x+P.w-1)/T),r0=Math.floor(P.y/T),r1=Math.floor((P.y+P.h-1)/T);
- for(let r=Math.max(r0,0);r<=Math.min(r1,R-1);r++)for(let c=c0;c<=c1;c++){const t=W[r][c];
-  if(t=='?'){ask(QM[r+','+c]);return}
-  if(t=='^'&&P.y+P.h>r*T+14){die();return}}
- if(P.y>R*T+40){die();return}
- if(P.x+P.w>FX*T){if(done>=NB){win()}else{P.x=(FX-4)*T;$('hud').textContent=`Te faltan ${NB-done} bloques ? — volvé a buscarlos`;}}}
-function hit(ax){const c0=Math.floor(P.x/T),c1=Math.floor((P.x+P.w-1)/T),r0=Math.floor(P.y/T),r1=Math.floor((P.y+P.h-1)/T);
- for(let r=r0;r<=r1;r++)for(let c=c0;c<=c1;c++)if(sol(c,r)){
-  if(ax==0){P.x=P.vx>0?c*T-P.w:(c+1)*T;P.vx=0}
-  else if(P.vy>0){P.y=r*T-P.h;P.vy=0;P.on=true}else{P.y=(r+1)*T;P.vy=0}
-  return}}
-function draw(){const w=cv.width;cam=Math.max(0,Math.min(NW*T-w,P.x-w/3));
- g.fillStyle='#9fd3ff';g.fillRect(0,0,w,R*T);g.fillStyle='#ffffffcc';
- for(let i=0;i<14;i++){const cx=((i*330-cam*.4)%(w+300)+w+300)%(w+300)-100;g.beginPath();g.arc(cx,60+i%3*40,26,0,7);g.arc(cx+30,66+i%3*40,20,0,7);g.arc(cx-28,68+i%3*40,18,0,7);g.fill()}
- const c0=Math.floor(cam/T),c1=c0+Math.ceil(w/T)+1;
- for(let r=0;r<R;r++)for(let c=c0;c<=c1&&c<NW;c++){const t=W[r][c],x=c*T-cam,y=r*T;
-  if(t=='#'){g.fillStyle=r==10?'#4caf50':'#8d6e63';g.fillRect(x,y,T,T);g.fillStyle='#0002';g.fillRect(x,y+T-2,T,2)}
-  else if(t=='='){g.fillStyle='#b0794a';g.fillRect(x,y,T,T/2);g.fillStyle='#e0a96d';g.fillRect(x,y,T,5)}
-  else if(t=='^'){g.fillStyle='#cfd8dc';g.beginPath();g.moveTo(x+2,y+T);g.lineTo(x+T/2,y+8);g.lineTo(x+T-2,y+T);g.fill()}
-  else if(t=='?'){const b=Math.sin(tk/10+c)*2;g.fillStyle='#ffc107';g.fillRect(x+2,y+2+b,T-4,T-4);g.strokeStyle='#8a5a00';g.lineWidth=2;g.strokeRect(x+2,y+2+b,T-4,T-4);g.fillStyle='#5a3a00';g.font='bold 20px sans-serif';g.textAlign='center';g.fillText('?',x+T/2,y+T-8+b)}}
- const fx=FX*T-cam;g.fillStyle='#546e7a';g.fillRect(fx,3*T,5,7*T);g.fillStyle='#e53935';g.beginPath();g.moveTo(fx+5,3*T);g.lineTo(fx+45,3*T+16);g.lineTo(fx+5,3*T+32);g.fill();
- const px=P.x-cam;g.fillStyle='#1b2a6b';g.fillRect(px,P.y,P.w,P.h);g.fillStyle='#ffd1a6';g.fillRect(px+3,P.y+3,16,10);
- g.fillStyle='#000';g.fillRect(px+(P.f>0?13:6),P.y+6,3,3);g.fillStyle='#e53935';g.fillRect(px,P.y,P.w,4)}
-let last=0,acc=0;function loop(t){acc+=Math.min(t-last,100);last=t;while(acc>=16.67){step();tk++;acc-=16.67}draw();requestAnimationFrame(loop)}
-reset();requestAnimationFrame(loop);
+ if(st=='q'&&k.length==1&&'1234'.includes(k))ans(+k-1);else if(k=='enter'&&st!='play'&&st!='q'&&onC)onC();
+ if(!e.repeat&&['arrowup','w',' '].includes(k))jp=1;keys[k]=true});
+addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
+[['bl','arrowleft'],['br','arrowright'],['bj','arrowup'],['bs','z']].forEach(([id,k])=>{const b=$(id);
+ b.onpointerdown=e=>{e.preventDefault();keys[k]=true;if(k=='arrowup')jp=1};['pointerup','pointerleave','pointercancel'].forEach(v=>b['on'+v]=()=>keys[k]=false)});
+const hitC=(o,r)=>{const cx=M.max(P.x,M.min(o.x,P.x+P.w)),cy=M.max(P.y,M.min(o.y,P.y+P.h));return(o.x-cx)**2+(o.y-cy)**2<r*r};
+const hitR=o=>o.x<P.x+P.w&&o.x+o.w>P.x&&o.y<P.y+P.h&&o.y+o.h>P.y;
+const orb=(x,y,vx,vy,c,o)=>eb.push(Object.assign({k:'o',x,y,vx,vy,r:10,c,p:0},o||{}));
+function ai(){const t=++bo.t;
+ if(lv==0){bo.y=130+M.sin(t/30)*10;
+  if(t%90==30){const hi=R()<.5;eb.push({k:'t',x:800,y:hi?GY-120:GY-24,w:150,h:24,vx:-6})}
+  if(t%90==60){for(let i=-2;i<=2;i++)orb(bo.x,bo.y+110,-4.5,i*1.5,i==0&&R()<.5?'#ff69b4':'#ffc107',{p:i==0&&R()<.5?1:0,r:9})}}
+ else if(lv==1){bo.y=120+M.sin(t/25)*14;
+  if(t%100==20)wn.push({x:P.x+14,t:45});
+  if(t%100==60)orb(800,GY-16,-3.2,0,'#7cb342',{r:16,b:1,s:1});
+  if(t%100==85)orb(bo.x,bo.y+60,-5,1,'#ff69b4',{p:1,r:12})}
+ else{if(bo.bl>0)bo.bl--;
+  if(t%120==10){bo.x=560+R()*100;bo.y=50+R()*140;bo.bl=25}
+  if(t%120==45){for(let i=0;i<6;i++)orb(bo.x+i*34,bo.y+110,-5,0,'#4fc3f7',{w:1,y0:bo.y+110,ph:i*.8,r:9})}
+  if(t%120==85){const a=M.atan2(P.y+20-bo.y-110,P.x-bo.x);for(let i=-1;i<=1;i++)orb(bo.x,bo.y+110,M.cos(a+i*.25)*5,M.sin(a+i*.25)*5,i==0&&R()<.4?'#ff69b4':'#fff176',{p:i==0&&R()<.4?1:0,r:10})}}}
+function hurt(){if(inv>0)return;hp--;inv=90;if(hp<=0){st='over';show('DERROTA','¡Te noqueó '+BS[lv].n+'!','Aciertos: '+ok+' · Errores: '+bad,'REINTENTAR');onC=()=>start(lv)}}
+function step(){tk++;if(st!='play')return;
+ const L=keys.arrowleft||keys.a,Rt=keys.arrowright||keys.d;
+ P.x=M.max(10,M.min(380,P.x+(Rt?4.5:0)-(L?4.5:0)));
+ if(jp&&P.on){P.vy=-13.5;P.on=false;jp=0}
+ P.vy+=.65;P.y+=P.vy;if(P.y>=GY-P.h){P.y=GY-P.h;P.vy=0;P.on=true}
+ if((keys.z||keys.x||keys.j||keys.k)&&tk%7==0)pb.push({x:P.x+30,y:P.y+14,vx:12});
+ pb.forEach(b=>{b.x+=b.vx;if(b.x>bo.x+20&&b.x<bo.x+bo.w&&b.y>bo.y&&b.y<bo.y+bo.h&&!(lv==2&&bo.bl>0)){bo.hp--;b.x=9e3;fl=3}});pb=pb.filter(b=>b.x<800);
+ ai();wn.forEach(w=>{if(--w.t==0)eb.push({k:'b',x:w.x-18,y:0,w:36,h:GY,life:18})});wn=wn.filter(w=>w.t>0);
+ eb.forEach(e=>{if(e.k=='o'){e.x+=e.vx;if(e.w){e.y=e.y0+M.sin(e.x/40+e.ph)*55}else e.y+=e.vy;if(e.b){e.vy+=.4;if(e.y>GY-e.r){e.y=GY-e.r;e.vy=-8}}
+   if(e.p&&jp&&!P.on&&hitC(e,e.r+14)){e.x=-9e3;bo.hp-=5;P.vy=-10;jp=0;fl=5}
+   else if(hitC(e,e.r-2)){hurt()}}
+  else if(e.k=='t'){e.x+=e.vx;if(hitR(e))hurt()}
+  else if(e.k=='b'){if(--e.life<0)e.x=-9e3;else if(hitR(e))hurt()}});
+ eb=eb.filter(e=>e.x>-200&&e.x<900&&e.y<500);jp=0;if(inv>0)inv--;if(fl>0)fl--;
+ if(bo.hp<=0){st='win';eb=[];if(lv<2){show('¡JEFE DERROTADO!',BS[lv].n+' cayó','Aciertos: '+ok+' · Errores: '+bad,'SIGUIENTE JEFE');onC=()=>intro(lv+1)}
+  else{show('¡GANASTE!','Derrotaste a los 3 jefes del TP N° 9','Aciertos: '+ok+' de '+(ok+bad)+' preguntas · Errores: '+bad,'JUGAR DE NUEVO');onC=()=>{ok=bad=0;intro(0)}}return}
+ if(bo.ph<3&&bo.hp<=bo.max*(1-.25*(bo.ph+1))){bo.ph++;eb=[];wn=[];ask()}}
+const hex=(x,y,r,f,s)=>{g.beginPath();for(let i=0;i<6;i++)g.lineTo(x+r*M.cos(i*M.PI/3),y+r*M.sin(i*M.PI/3));g.closePath();g.fillStyle=f;g.fill();g.strokeStyle=s;g.lineWidth=3;g.stroke()};
+const eyes=(cx,cy,d)=>{[-1,1].forEach(s=>{g.fillStyle='#fff';g.beginPath();g.arc(cx+s*d,cy,15,0,7);g.fill();g.strokeStyle='#000';g.lineWidth=3;g.stroke();g.fillStyle='#c00';g.beginPath();g.arc(cx+s*d-5,cy+2,6,0,7);g.fill()})};
+function drawBoss(){const x=bo.x,y=bo.y;g.save();if(fl>0)g.globalAlpha=.7;if(lv==2&&bo.bl>0)g.globalAlpha=.3;g.lineJoin='round';
+ if(lv==0){g.fillStyle='#455a64';g.fillRect(x,y,bo.w,bo.h);g.strokeStyle='#000';g.lineWidth=4;g.strokeRect(x,y,bo.w,bo.h);
+  for(let i=0;i<3;i++)for(let j=0;j<4;j++)hex(x+30+i*60+(j%2)*0,y+34+j*58,24,'#78909c','#263238');
+  eyes(x+90,y+50,34);g.fillStyle='#111';g.fillRect(x+50,y+95,80,22);g.fillStyle='#fff';for(let i=0;i<5;i++)g.fillRect(x+54+i*16,y+95,10,9);
+  g.fillStyle='#263238';g.fillRect(x-70,y+120,80,28);g.strokeRect(x-70,y+120,80,28);for(let i=0;i<4;i++)g.fillRect(x-60+i*20,y+118,4,32)}
+ else if(lv==1){const cx=x+90,cy=y+120;g.strokeStyle='#4a148c';g.lineWidth=7;
+  for(let i=0;i<8;i++){const a=i*M.PI/4+M.sin(tk/20+i)*.1;g.beginPath();g.moveTo(cx,cy);g.lineTo(cx+M.cos(a)*115,cy+M.sin(a)*115);g.stroke();g.fillStyle='#ce93d8';g.beginPath();g.arc(cx+M.cos(a)*115,cy+M.sin(a)*115,10,0,7);g.fill()}
+  g.fillStyle='#8e24aa';g.beginPath();g.arc(cx,cy,78,0,7);g.fill();g.strokeStyle='#000';g.lineWidth=4;g.stroke();
+  g.fillStyle='#212121';g.fillRect(cx-28,cy-70,56,22);g.strokeStyle='#ffd54f';g.lineWidth=2;g.strokeRect(cx-22,cy-65,44,12);
+  eyes(cx,cy-10,28);g.fillStyle='#111';g.fillRect(cx-30,cy+30,60,16);if(tk%24<12){g.strokeStyle='#ffee58';g.lineWidth=3;g.beginPath();g.moveTo(cx-30,cy+38);for(let i=1;i<=6;i++)g.lineTo(cx-30+i*10,cy+(i%2?30:46));g.stroke()}}
+ else{const cx=x+90,cy=y+120;for(let i=0;i<3;i++){const rot=tk/50+i*M.PI/3,a=tk/12+i*2;g.strokeStyle='#e1f5fe';g.lineWidth=3;g.beginPath();g.ellipse(cx,cy,100,34,rot,0,7);g.stroke();
+  const ex=100*M.cos(a),ey=34*M.sin(a);g.fillStyle='#29b6f6';g.beginPath();g.arc(cx+ex*M.cos(rot)-ey*M.sin(rot),cy+ex*M.sin(rot)+ey*M.cos(rot),9,0,7);g.fill();g.strokeStyle='#000';g.stroke()}
+  [[-14,-10,'#e53935'],[14,-8,'#1e88e5'],[-8,14,'#1e88e5'],[12,14,'#e53935']].forEach(([a,b,c])=>{g.fillStyle=c;g.beginPath();g.arc(cx+a,cy+b,26,0,7);g.fill();g.strokeStyle='#000';g.lineWidth=3;g.stroke()});eyes(cx,cy-4,18)}
+ g.restore()}
+function drawP(){if(inv>0&&tk%8<4)return;const x=P.x,y=P.y;g.lineWidth=3;g.strokeStyle='#000';g.fillStyle='#1b2a6b';g.fillRect(x+4,y+22,20,22);g.strokeRect(x+4,y+22,20,22);
+ g.fillStyle='#fff';g.beginPath();g.moveTo(x+10,y);g.lineTo(x+18,y);g.lineTo(x+18,y+8);g.lineTo(x+28,y+24);g.lineTo(x,y+24);g.lineTo(x+10,y+8);g.closePath();g.fill();g.stroke();
+ g.fillStyle='#e53935';g.beginPath();g.moveTo(x+4,y+17);g.lineTo(x+24,y+17);g.lineTo(x+28,y+24);g.lineTo(x,y+24);g.fill();g.fillStyle='#000';g.fillRect(x+16,y+14,3,3)}
+function draw(){const d=BS[lv],gr=g.createLinearGradient(0,0,0,GY);gr.addColorStop(0,d.bg[0]);gr.addColorStop(1,d.bg[1]);g.fillStyle=gr;g.fillRect(0,0,800,450);
+ g.fillStyle=lv==2?'#120a2e':'#5d4a2a';g.fillRect(0,GY,800,60);g.fillStyle=lv==2?'#4527a0':'#8a7040';g.fillRect(0,GY,800,6);
+ if(bo&&st!='menu'&&st!='intro'){drawBoss();drawP();g.fillStyle='#ffee58';pb.forEach(b=>g.fillRect(b.x,b.y,16,5));
+  wn.forEach(w=>{g.fillStyle=tk%6<3?'#ff1744aa':'#ff174455';g.fillRect(w.x-3,0,6,GY)});
+  eb.forEach(e=>{if(e.k=='o'){g.fillStyle=e.p?'#ff69b4':e.c;g.beginPath();g.arc(e.x,e.y,e.r,0,7);g.fill();g.strokeStyle='#000';g.lineWidth=2.5;g.stroke();if(e.s){for(let i=0;i<8;i++){const a=i*M.PI/4;g.beginPath();g.moveTo(e.x+M.cos(a)*e.r,e.y+M.sin(a)*e.r);g.lineTo(e.x+M.cos(a)*(e.r+7),e.y+M.sin(a)*(e.r+7));g.stroke()}}}
+   else if(e.k=='t'){g.fillStyle='#37474f';g.fillRect(e.x,e.y,e.w,e.h);g.strokeStyle='#000';g.lineWidth=3;g.strokeRect(e.x,e.y,e.w,e.h);g.fillStyle='#90a4ae';for(let i=1;i<6;i++)g.fillRect(e.x+i*25,e.y,3,e.h)}
+   else{g.fillStyle='#fff59d';g.fillRect(e.x,0,e.w,e.h);g.fillStyle='#ffee58';g.fillRect(e.x+10,0,e.w-20,e.h)}});
+  g.fillStyle='#000';g.fillRect(100,10,600,16);g.fillStyle='#e53935';g.fillRect(102,12,596*M.max(0,bo.hp)/bo.max,12);
+  g.fillStyle='#fff';g.font='bold 13px Georgia';g.textAlign='center';g.fillText(d.n,400,40);g.fillStyle='#e53935';g.textAlign='left';g.font='bold 24px sans-serif';g.fillText('♥'.repeat(M.max(0,hp)),12,30)}
+ const v=g.createRadialGradient(400,225,200,400,225,520);v.addColorStop(0,'#0000');v.addColorStop(1,'#0006');g.fillStyle=v;g.fillRect(0,0,800,450);
+ g.fillStyle='#0003';for(let i=0;i<30;i++)g.fillRect(R()*800,R()*450,2,2)}
+let last=0,acc=0;(function loop(t){requestAnimationFrame(loop);acc+=M.min(t-last,100);last=t;try{while(acc>=16.67){step();acc-=16.67}draw()}catch(e){console.error(e)}})(0);
+st='menu';show('TP N° 9 · QUÍMICA II','BOSS RUSH CUÁNTICO','3 jefes basados en Nanomateriales, Nanobioelectrotecnología y Química cuántica. ¡Vencelos a todos!','EMPEZAR');onC=()=>intro(0);
 </script></body></html>
